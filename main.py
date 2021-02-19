@@ -48,6 +48,11 @@ while len(guessed_states) < num_of_states:
     ).title()
 
     if answer_state == "Exit":
+        missing_states = [
+            state for state in state_df["state"].tolist() if not state in guessed_states
+        ]
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("states_to_learn.csv")
         break
     if correct_guess(answer_state) and not answer_state in guessed_states:
         state_coords = get_coords(answer_state)
